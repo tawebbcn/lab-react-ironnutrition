@@ -2,59 +2,49 @@ import React, { Component } from 'react'
 import foods from '../foods.json'
 import FoodList from './FoodList';
 import AddFood from './AddFood.js';
+import SearchFood from './SearchFood.js';
 
 export default class FoodBox extends Component {
 
    state ={
-            foods: foods,
-            newFoods:{
-                name:"",
-                calories:"",
-                image:""
-            }
+        foods,
+        showForm: false
         }
-
-
-        addFood=(event)=>{
-
-        }
-
-        handleChange(event){
-            let {name, value} = event.target;
-            this.setState.newFoods({[name]:value})
-        }
-        handleFormSubmit=(event)=>{
-            event.preventDefault();
-            this.props.addTheMovie(this.state);
+    
+        addFoodHandler = (theFood) =>{
+            const foodCopy = [...this.state.foods]
+            foodCopy.push(theFood);
             this.setState({
-                title:"",
-                director : "",
-                hasOscars: false,
-                IMDbRating: "",
+                foods:foodCopy
             })
         }
 
+        showForm=()=>{
+            this.setState({
+                showForm: !this.state.showForm
+            })
+        }
+
+        searchFood =(e)=>{
+        let foodCopy = []
+        foodCopy = [...this.state.foods]
+           const {value} = e.target
+            const filteredFoods = foodCopy.filter(food => food.name.toLowerCase().includes(value.toLowerCase()))
+            this.setState({
+                foods:filteredFoods
+            }) 
+           
+        }
 
     render() {
+        const {showForm} = this.state
         return (
             <div>
-                <FoodList foods={this.state.foods} />
-                <AddFood foods={this.state.foods} />
-                <button onClick={this.state.addFood}></button>
+            <SearchFood foods={this.state.foods} searchFood={(e)=>this.searchFood(e)}/>
+            {showForm ? <AddFood addTheFood={this.addFoodHandler} /> : null}
+            <button onClick={this.showForm}>{showForm ? "HIDE" : "SHOW"}</button>
+            <FoodList foods={this.state.foods} />
 
-                <form onSubmit={this.handleFormSubmit}>
-                <label>Name:</label>
-                <input type="text" name="Name" value={this.state.name} onChange={(e)=>this.handleChange(e)} />
-        ​
-        ​
-                <label>N of calories</label>
-                <input type="text" name="Calories" value={this.state.calories} onChange={(e)=>this.handleChange(e)}/>
-            
-                <label>Image</label>
-                <input type="text" name="Image" value={this.state.image} onChange={(e)=>this.handleChange(e)} />
-
-                <input type="submit" value="Submit" />
-             </form>
 
             </div>
         )
