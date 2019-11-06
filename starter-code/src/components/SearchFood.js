@@ -1,7 +1,6 @@
 import React from 'react'
 
 const SearchFood = (props) => {
-    console.log(props)
     const {searchFood} = props
     return (
         <div>

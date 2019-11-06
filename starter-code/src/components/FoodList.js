@@ -1,7 +1,7 @@
 import React from 'react'
 
 const FoodList=(props) => {
-    const {foods} = props
+    const {foods, addTodayFood} = props
     return (
        
          <div>
@@ -31,7 +31,7 @@ const FoodList=(props) => {
                             />
                             </div>
                             <div className="control">
-                            <button className="button is-info">
+                            <button className="button is-info" onClick={(e)=>addTodayFood(e)}>
                                 +
                             </button>
                             </div>
