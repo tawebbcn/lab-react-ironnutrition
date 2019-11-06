@@ -1,19 +1,47 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import foods from './foods.json'
+// import logo from './logo.svg';
 import './App.css';
+import 'bulma/css/bulma.css';
+import FoodList from './components/FoodList';
+import AddFood from './components/AddFood';
+
+// import foods from './foods.json'
 
 class App extends Component {
+  state = {
+    foods,
+    showForm: false
+  }
+
+  addFoodHandler = food => {
+    foods.push(food)
+    this.setState({
+      foods: foods
+    })
+  } 
+
+  displayForm = () =>{
+    this.setState({
+      showForm: !this.state.showForm
+    })
+  }
+
+
   render() {
+    const {showForm} = this.state
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+     <div>
+     <button onClick={()=>this.displayForm()}>
+     {showForm ? "Hide" : "Show"}
+     </button>
+          { 
+           showForm ?           
+          <AddFood addFood={this.addFoodHandler}/>         
+          : null
+          }
+          <FoodList />         
+     </div>
     );
   }
 }
