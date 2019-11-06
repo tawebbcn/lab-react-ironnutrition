@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import foodsJSON from '../foods.json';
 import FoodBox from './FoodBox';
 import AddFood from './AddFood';
+import Search from './Search';
 
 export default class Food extends Component {
   constructor() {
@@ -12,7 +13,7 @@ export default class Food extends Component {
     }
   }
 
-  addFoodHandler = (newFood)  =>{
+  addFoodHandler = (newFood)  => {
     const foodsCopy = [...this.state.foods];
     foodsCopy.push(newFood);
     this.setState({
@@ -26,6 +27,15 @@ export default class Food extends Component {
     })
   }
 
+  searchFood = (searchTerm) => {
+    let foodsCopy = this.state.foods.filter((food) => {
+      return food.name.toLowerCase().includes(searchTerm.search.toLowerCase());
+    });
+    this.setState({
+      foods: foodsCopy
+    });
+  }
+
   render () {
     const {displayForm} = this.state
     return (
@@ -35,6 +45,9 @@ export default class Food extends Component {
             <button onClick={this.showForm}>Add new Food</button>
           </div>
             {displayForm ? <AddFood addFood={this.addFoodHandler} /> : null}
+        </div>
+        <div>
+          <Search searchFood={this.searchFood} />
         </div>
         <div>
           {
