@@ -5,6 +5,8 @@ import './App.css';
 import 'bulma/css/bulma.css';
 import FoodList from './components/FoodList';
 import AddFood from './components/AddFood';
+import SearchBar from './components/SearchBar.js';
+
 
 // import foods from './foods.json'
 
@@ -32,15 +34,18 @@ class App extends Component {
     const {showForm} = this.state
     return (
      <div>
+     <h1>IronNutrition</h1>
+     <SearchBar/>
      <button onClick={()=>this.displayForm()}>
-     {showForm ? "Hide" : "Show"}
+     {showForm ? "Hide" : "Add Food"}
      </button>
           { 
            showForm ?           
           <AddFood addFood={this.addFoodHandler}/>         
           : null
           }
-          <FoodList />         
+          <FoodList />  
+          {/* <TodaysFood />        */}
      </div>
     );
   }

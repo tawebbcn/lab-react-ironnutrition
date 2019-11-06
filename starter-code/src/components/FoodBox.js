@@ -28,11 +28,9 @@ function FoodBox(props) {
                         defaultValue="1"
                     />
                     </div>
-                    <div className="control">
-                    <button className="button is-info">
-                        +
-                    </button>
-                    </div>
+                    <form className="control">
+                    <button type="Submit" className="button is-info btnplus">+</button>
+                    </form>
                 </div>
                 </div>
             </article>
