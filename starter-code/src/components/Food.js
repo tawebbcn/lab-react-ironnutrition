@@ -3,12 +3,14 @@ import foodsJSON from '../foods.json';
 import FoodBox from './FoodBox';
 import AddFood from './AddFood';
 import Search from './Search';
+import TodaysBox from './TodaysBox';
 
 export default class Food extends Component {
   constructor() {
     super();
     this.state = {
       foods: foodsJSON,
+      todaysFoods: [],
       displayForm: false
     }
   }
@@ -36,6 +38,15 @@ export default class Food extends Component {
     });
   }
 
+  addTodayHandler = (newToday) => {
+    const todaysFoodsCopy = [...this.state.todaysFoods];
+    todaysFoodsCopy.push(newToday);
+    this.setState({
+      todaysFoods: todaysFoodsCopy
+    })
+    console.log(this.state.todaysFoods)
+  }
+
   render () {
     const {displayForm} = this.state
     return (
@@ -50,17 +61,35 @@ export default class Food extends Component {
           <Search searchFood={this.searchFood} />
         </div>
         <div>
-          {
-          this.state.foods.map((food, index) =>
-            <FoodBox
-              key = {index}
-              image = {food.image}
-              name = {food.name}
-              calories = {food.calories}
-            />
-          )
-        }
+          <div>
+            {
+              this.state.foods.map((food, index) =>
+                <FoodBox
+                  key = {index}
+                  image = {food.image}
+                  name = {food.name}
+                  calories = {food.calories}
+                  addToday = {this.addTodayHandler}
+                />
+              )
+            }
+          </div>
+
+          <div>
+            {
+              this.state.todaysFoods.map((food, index) =>
+                <TodaysBox
+                  key = {index}
+                  image = {food.image}
+                  name = {food.name}
+                  quantity = {food.quantity}
+                  calories = {food.calories}
+                />
+              )
+            }
+          </div>
         </div>
+        
       </div>
     )
   }

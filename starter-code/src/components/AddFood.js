@@ -8,7 +8,7 @@ export default class AddFood extends Component {
       name: '',
       calories: '',
       image: '',
-      quantity: 0
+      quantity: ''
     }
   }
 
@@ -19,12 +19,13 @@ export default class AddFood extends Component {
 
   formHandler = (event) => {
     event.preventDefault();
+    console.log(event)
     this.props.addFood(this.state);
     this.setState({
       name: '',
       calories: '',
       image: '',
-      quantity: 0
+      quantity: ''
     })
   }
   
@@ -35,7 +36,7 @@ export default class AddFood extends Component {
         <input type="text" name="name" value={this.state.name} onChange={(element) => this.changeHandler(element)} required />
         <label>Calories:</label>
         <input type="number" name="calories" value={this.state.calories} onChange={(element) => this.changeHandler(element)} required />
-        <label>Name:</label>
+        <label>Image:</label>
         <input type="text" name="image" value={this.state.image} onChange={(element) => this.changeHandler(element)} required/>
         <button type="submit" value="Submit">Submit</button>
       </form>
