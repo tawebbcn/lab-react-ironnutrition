@@ -12,7 +12,11 @@ class App extends Component {
   state = {
     foods,
     displayCreating: false,
-    todaysFood: []
+    todaysFood: [{
+      name: "pizza",
+      calories: 50,
+      quantity: 1,
+    }]
   }
 
   toggleDisplayCreating = () => {
@@ -23,7 +27,6 @@ class App extends Component {
 
   createFood = (newFood) => {
     foods.push(newFood)
-
     this.setState({
       foods
     })
@@ -41,6 +44,20 @@ class App extends Component {
       foods: newFoods
     })
   }
+
+  createTodaysFood = (newFood) => {
+
+    const newTodaysFood = [...this.state.todaysFood]
+    newTodaysFood.push({
+      name: newFood.name,
+      calories: newFood.calories,
+      quantity: newFood.quantity,
+    })
+    this.setState({
+      todaysFood: newTodaysFood
+    })
+  }
+
 
   render() {
     return (
@@ -63,14 +80,16 @@ class App extends Component {
           <div>
             {
               this.state.foods.map((food, index) => {
-                return <FoodCard key={index} name={food.name} calories={food.calories} img={food.image} />
+                return <FoodCard key={index} name={food.name} calories={food.calories} img={food.image} createTodaysFood={(newFood) => this.createTodaysFood(newFood)} />
               })
             }
           </div>
+          <h2>Today's Food</h2>
+
           <ul>
             {
               this.state.todaysFood.map((food, index) => {
-                return <TodaysFood key={index} name={food.name} calories={food.calories} />
+                return <TodaysFood key={index} name={food.name} calories={food.calories} quantity={food.quantity} />
               })
             }
           </ul>

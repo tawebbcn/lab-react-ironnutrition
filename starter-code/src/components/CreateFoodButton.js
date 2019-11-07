@@ -28,7 +28,7 @@ export default class CreateFoodButton extends Component {
         })
     }
 
-    render(props) {
+    render() {
         return (
             <div>
                 <form onSubmit={this.submitForm} >

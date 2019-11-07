@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 
 export default class TodaysFood extends Component {
-    render(props) {
+
+    render() {
         return (
-            <li>{props.name}, {props.calories} calories</li>
+            <li>{this.props.quantity} {this.props.name}, {this.props.calories} calories</li>
         )
     }
 }
